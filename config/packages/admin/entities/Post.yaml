@@ -1,0 +1,39 @@
+easy_admin:
+  entities:
+    Post:
+      class: App\Entity\Post
+      templates:
+        edit: 'admin/post/edit.html.twig'
+      form:
+        fields:
+          - 'name'
+          - 'slug'
+          - 'category'
+          - 'tags'
+          - { property: 'previewImageFile', type: 'vich_image' }
+          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType' }}
+      show:
+        fields:
+          - 'name'
+          - 'slug'
+          - 'category'
+          - 'tags'
+          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType' }}
+          - { property: 'previewImage',  type: 'image', base_path: '%app.path.post_images%' }
+      list:
+        max_results: 10
+        fields:
+          - 'id'
+          - 'name'
+          - 'images'
+          - { property: 'previewImage',  type: 'image', base_path: '%app.path.post_images%',  label: 'Image' }
+#          - { property: 'image',  template: 'vich_uploader_image.html.twig',  label: 'Image' }
+          - 'online'
+          - 'category'
+          - 'tags'
+        actions:
+#          - {name: 'show', icon: 'tv', lable: false, css_class: 'btn btn-secondary'}
+          - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', lable: false, css_class: 'btn btn-danger'}
+      search:
+        fields: ['name', 'category.name']

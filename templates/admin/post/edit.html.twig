@@ -1,0 +1,23 @@
+{% extends  '@EasyAdmin/default/edit.html.twig'%}
+
+{% block main %}
+<p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tempore id exercitationem laudantium veniam eius et accusantium ad voluptatem sequi!
+</p>
+   
+    {% block entity_form %}
+
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.slug) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+{% endblock %}

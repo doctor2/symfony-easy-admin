@@ -1,0 +1,15 @@
+parameters:
+  zoo.cages.number: 10
+  zoo.liens.number: 4
+  zoo.liens.number_in_cage: 3
+  zoo.crocodiles.number: 4
+  zoo.crocodiles.number_in_cage: 2
+  zoo.elephants.number: 3
+  zoo.elephants.number_in_cage: 2
+
+
+services:
+  app.zoo:
+    class:  App\Zoo\Zoo
+    public: true
+    arguments: ["@service_container"]

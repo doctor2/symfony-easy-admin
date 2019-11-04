@@ -1,0 +1,36 @@
+easy_admin:
+    site_name: 'Admin panel'
+    list:
+        max_results: 20
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+
+
+#Подключение в одном файле 
+# design:
+#         menu:
+#           - label: 'Blog'
+#             icon: 'newspaper-o'
+#             children:
+#                 - {entity: 'Post', icon: 'newspaper-o', label: 'Posts'}
+#                 - {entity: 'Category', icon: 'inbox', label: 'Categories'}
+#     entities:
+#       Category:
+#         class: App\Entity\Category
+#         form:
+#             fields:
+#                 - {property: 'name'}
+#                 - {property: 'slug'}
+#       Post:
+#         class: App\Entity\Post
+
+
+
+# Очень простое подключение
+      # entities:
+#        # List the entity class name you want to manage
+#        - App\Entity\Product
+      #  - App\Entity\Post
+#        - App\Entity\User

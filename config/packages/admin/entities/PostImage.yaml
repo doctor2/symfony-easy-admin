@@ -1,0 +1,20 @@
+easy_admin:
+  entities:
+    PostImage:
+      class: App\Entity\Image
+      form:
+        fields:
+          - 'name'
+          - { property: 'imageFile', type: 'vich_image' }
+          - { property: 'posts', type_options: { multiple: false },  label: 'Post' }
+      list:
+        fields:
+          - 'id'
+          - 'name'
+          - { property: 'image',  type: 'image', base_path: '%app.path.post_images%' }
+          - { property: 'posts.name',  label: 'Post' }
+        actions:
+          - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', lable: false, css_class: 'btn btn-danger'}
+      search:
+        fields: ['name', 'posts.name']
