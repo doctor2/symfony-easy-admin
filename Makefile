@@ -12,5 +12,8 @@ echo "Now run"
 docker-compose up -d
 echo "${NC}"
 
+sudo chgrp -R www-data public/uploads
+sudo chmod -R ug+rwx public/uploads
+
 docker-compose exec app php bin/console doctrine:migrations:migrate
 docker-compose exec app php bin/console server:start
