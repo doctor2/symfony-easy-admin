@@ -40,7 +40,7 @@ class Category
         $this->posts = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -69,9 +69,6 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|Post[]
-     */
     public function getPosts(): Collection
     {
         return $this->posts;
@@ -100,7 +97,7 @@ class Category
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

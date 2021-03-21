@@ -4,9 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -47,9 +47,9 @@ class Post
     private $tags;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":false})
      */
-    private $online;
+    private $online = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,16 +57,14 @@ class Post
     private $previewImage;
 
     /**
-     * @var Image[]|ArrayCollection
-     *
      * @ORM\ManyToMany(targetEntity="Image", cascade={"persist"})
-     * @ORM\JoinTable(name="post_images",
+     * @ORM\JoinTable(
+     *      name="post_images",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id", unique=true)}
      * )
      */
     private $images;
-
 
     /**
      * @Vich\UploadableField(mapping="post_images", fileNameProperty="previewImage")
@@ -78,10 +76,9 @@ class Post
     {
         $this->tags = new ArrayCollection();
         $this->images = new ArrayCollection();
-
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -134,14 +131,6 @@ class Post
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /**
-     * @return Collection|Tag[]
-     */
     public function getTags(): Collection
     {
         return $this->tags;
@@ -189,7 +178,7 @@ class Post
         return $this;
     }
 
-    public function setPreviewImageFile(File $image = null)
+    public function setPreviewImageFile(File $image): self
     {
         $this->previewImageFile = $image;
 
@@ -200,20 +189,22 @@ class Post
             // if 'updatedAt' is not defined in your entity, use another property
             $this->updatedAt = new \DateTime('now');
         }
+
+        return $this;
     }
 
-    public function getPreviewImageFile()
+    public function getPreviewImageFile(): ?File
     {
         return $this->previewImageFile;
     }
 
-    /**
-     * Get images
-     *
-     * @return Image[]|ArrayCollection
-     */
-    public function getImages()
+    public function getImages(): Collection
     {
         return $this->images;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

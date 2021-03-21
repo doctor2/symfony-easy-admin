@@ -17,4 +17,4 @@ easy_admin:
           - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', lable: false, css_class: 'btn btn-danger'}
       search:
-        fields: ['name', 'posts.name']
+        fields: ['name', 'postname']

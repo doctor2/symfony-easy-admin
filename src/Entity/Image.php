@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Traits\PostImage;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -18,11 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Image
 {
-    use PostImage;
-
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -30,15 +26,11 @@ class Image
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $image;
@@ -51,52 +43,39 @@ class Image
     private $imageFile;
 
     /**
-     * @var DateTime
-     *
      * @ORM\Column(type="datetime", length=255)
      */
     private $updatedAt;
 
     /**
-     * Get id
-     *
-     * @return int
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="images", cascade={"persist"})
+     * @ORM\JoinTable(name="post_images")
      */
-    public function getId()
+    private $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Image
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param File|null $image
-     * @return Image
-     * @throws Exception
-     */
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image): self
     {
         $this->imageFile = $image;
 
@@ -107,30 +86,39 @@ class Image
         return $this;
     }
 
-    /**
-     * @return File
-     */
-    public function getImageFile()
+    public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    /**
-     * @param string $image
-     * @return Image
-     */
-    public function setImage($image)
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function getPostName(): ?string
+    {
+        $post = $this->posts[0];
+
+        return $post ? $post->getName() : null;
+    }
+
+    public function setPosts(Post $post): bool
+    {
+        $this->posts->clear();
+
+        return $this->posts->add($post);
     }
 }
