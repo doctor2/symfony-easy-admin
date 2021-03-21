@@ -1,8 +1,8 @@
 easy_admin:
-    entities:
-      Tag:
-        class: App\Entity\Tag
-        form:
-            fields:
-                - {property: 'name'}
-                - {property: 'slug'}
+  entities:
+    Tag:
+      class: App\Entity\Tag
+      form:
+        fields:
+            - {property: 'name'}
+            - {property: 'slug'}
