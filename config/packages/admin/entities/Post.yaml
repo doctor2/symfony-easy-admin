@@ -8,6 +8,8 @@ easy_admin:
         fields:
           - 'name'
           - 'slug'
+          - 'content'
+          - 'online'
           - 'category'
           - 'tags'
           - { property: 'previewImageFile', type: 'vich_image' }
@@ -16,6 +18,8 @@ easy_admin:
         fields:
           - 'name'
           - 'slug'
+          - 'content'
+          - 'online'
           - 'category'
           - 'tags'
           - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType' }}
@@ -26,13 +30,13 @@ easy_admin:
           - 'id'
           - 'name'
           - 'images'
-          - { property: 'previewImage',  type: 'image', base_path: '%app.path.post_images%',  label: 'Image' }
-#          - { property: 'image',  template: 'vich_uploader_image.html.twig',  label: 'Image' }
+          - { property: 'previewImage',  type: 'image', base_path: '%app.path.post_images%', label: 'Image' }
+        #  - { property: 'image',  template: 'vich_uploader_image.html.twig',  label: 'Image' }
           - 'online'
           - 'category'
           - 'tags'
         actions:
-#          - {name: 'show', icon: 'tv', lable: false, css_class: 'btn btn-secondary'}
+          # - {name: 'show', icon: 'tv', lable: false, css_class: 'btn btn-secondary'}
           - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', lable: false, css_class: 'btn btn-danger'}
       search:
