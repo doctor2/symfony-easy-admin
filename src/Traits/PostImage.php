@@ -32,7 +32,12 @@ trait PostImage
      */
     public function getPosts()
     {
-        return $this->posts[0] ?? null;
+        return $this->posts;
+    }
+
+    public function getPostName(): ?string
+    {
+        return $this->posts[0]->getName() ?? null;
     }
 
     /**

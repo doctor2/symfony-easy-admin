@@ -6,13 +6,13 @@ easy_admin:
         fields:
           - 'name'
           - { property: 'imageFile', type: 'vich_image' }
-          - { property: 'posts', type_options: { multiple: false },  label: 'Post' }
+          - { property: 'posts', label: 'Post' }
       list:
         fields:
           - 'id'
           - 'name'
           - { property: 'image',  type: 'image', base_path: '%app.path.post_images%' }
-          - { property: 'posts.name',  label: 'Post' }
+          - { property: 'postname',  label: 'Post' }
         actions:
           - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', lable: false, css_class: 'btn btn-danger'}
