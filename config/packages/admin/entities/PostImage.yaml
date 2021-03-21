@@ -5,7 +5,7 @@ easy_admin:
       form:
         fields:
           - 'name'
-          - { property: 'imageFile', type: 'vich_image' }
+          - { property: 'imageFile', type: 'vich_image', type_options: { allow_delete: false } }
           - { property: 'posts', label: 'Post' }
       list:
         fields:
