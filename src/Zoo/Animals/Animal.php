@@ -4,19 +4,12 @@ namespace App\Zoo\Animals;
 
 abstract class Animal
 {
-    /**
-     * @param string $food
-     * @return string
-     */
-    public function eat(string $food)
+    public function eat(string $food): string
     {
         return $this . ' eat ' . $food;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         $type = explode('\\', static::class);
 

@@ -4,11 +4,8 @@ namespace App\Zoo\Animals;
 
 class Elephant extends Animal
 {
-    /**
-     * @return string
-     */
-    public function waterYourselfTheTrunk()
+    public function waterYourselfTheTrunk(): string
     {
-        return $this .' water yourself the trunk';
+        return $this . ' water yourself the trunk';
     }
 }

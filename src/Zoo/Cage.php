@@ -8,68 +8,49 @@ use Exception;
 
 class Cage
 {
+    private $animals;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
     }
 
-    /**
-     * @var ArrayCollection
-     */
-    private $animals;
-
-    /**
-     * @return ArrayCollection
-     */
     public function getAnimals(): ArrayCollection
     {
         return $this->animals;
     }
 
-    /**
-     * @param int $number
-     * @return Animal|null
-     */
     public function getAnimal(int $number): ?Animal
     {
         return $this->animals[$number] ?? null;
     }
 
-    /**
-     * @param Animal $animal
-     * @return $this
-     * @throws Exception
-     */
+    public function getLastAnimal(): ?Animal
+    {
+        $animal = $this->animals->last();
+
+        return $animal === false ? null : $animal;
+    }
+
     public function addAnimal(Animal $animal): self
     {
-        $this->checkAnimalType($animal);
+        $this->assertIsOneAnimalTypeInTheCage($animal);
 
         $this->animals->add($animal);
 
         return $this;
     }
 
-    /**
-     * @return Animal|null
-     */
-    public function removeAnimal(): ?Animal
+    public function removeAnimal(): bool
     {
-        if($this->animals->isEmpty()){
-            return null;
+        if ($this->animals->isEmpty()) {
+            return false;
         }
 
-        if($animal = $this->animals->last()){
-            $this->animals->removeElement($animal);
-        }
-
-        return $animal;
+        return $this->animals->removeElement($this->animals->last());
     }
 
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function clean()
+    public function clean(): bool
     {
         if (!$this->animals->isEmpty()) {
             throw new Exception('Dangerous! Animal in the cage!');
@@ -77,18 +58,13 @@ class Cage
 
         $this->animals->clear();
 
-        return 'Clear';
+        return true;
     }
 
-    /**
-     * @param Animal $animal
-     * @throws Exception
-     */
-    protected function checkAnimalType(Animal $animal)
+    private function assertIsOneAnimalTypeInTheCage(Animal $animal): void
     {
-        if (!$this->animals->isEmpty() && (string)$this->animals->last() != (string)$animal) {
-            throw new Exception('Wrong kind of animal! ' . 'Needs ' . (string)$this->animals->last());
+        if (!$this->animals->isEmpty() && (string) $this->animals->last() != (string) $animal) {
+            throw new Exception('Wrong kind of animal! Needs ' . (string) $this->animals->last());
         }
     }
-
 }

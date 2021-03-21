@@ -4,10 +4,7 @@ namespace App\Zoo\Animals;
 
 class Lien extends Animal
 {
-    /**
-     * @return string
-     */
-    public function growl()
+    public function growl(): string
     {
         return $this . ' growl';
     }

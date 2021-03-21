@@ -4,10 +4,7 @@ namespace App\Zoo\Animals;
 
 class Crocodile extends Animal
 {
-    /**
-     * @return string
-     */
-    public function swim()
+    public function swim(): string
     {
         return $this . ' swim';
     }
