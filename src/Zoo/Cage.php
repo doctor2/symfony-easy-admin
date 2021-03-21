@@ -22,32 +22,21 @@ class Cage
 
     public function getAnimal(int $number): ?Animal
     {
-        return $this->animals[$number] ?? null;
-    }
-
-    public function getLastAnimal(): ?Animal
-    {
-        $animal = $this->animals->last();
-
-        return $animal === false ? null : $animal;
+        return $this->animals->get($number);
     }
 
     public function addAnimal(Animal $animal): self
     {
-        $this->assertIsOneAnimalTypeInTheCage($animal);
+        $this->assertSupportAnimalType($animal);
 
         $this->animals->add($animal);
 
         return $this;
     }
 
-    public function removeAnimal(): bool
+    public function removeAnimal(Animal $animal): bool
     {
-        if ($this->animals->isEmpty()) {
-            return false;
-        }
-
-        return $this->animals->removeElement($this->animals->last());
+        return $this->animals->removeElement($animal);
     }
 
     public function clean(): bool
@@ -61,7 +50,7 @@ class Cage
         return true;
     }
 
-    private function assertIsOneAnimalTypeInTheCage(Animal $animal): void
+    private function assertSupportAnimalType(Animal $animal): void
     {
         if (!$this->animals->isEmpty() && (string) $this->animals->last() != (string) $animal) {
             throw new Exception('Wrong kind of animal! Needs ' . (string) $this->animals->last());

@@ -2,6 +2,7 @@
 
 namespace App\Zoo;
 
+use App\Zoo\Animals\Animal;
 use App\Zoo\Animals\Crocodile;
 use App\Zoo\Animals\Elephant;
 use App\Zoo\Animals\Lien;
@@ -42,7 +43,7 @@ class Zoo
     {
         $this->container = $container;
 
-        $this->fillWithAnimals();
+        $this->initZoo();
     }
 
     public function getCages(): ArrayCollection
@@ -52,79 +53,88 @@ class Zoo
 
     public function getCage(int $number): ?Cage
     {
-        return $this->cages[$number] ?? null;
+        return $this->cages->get($number);
     }
 
-    /**
-     * @return mixed
-     */
-    public function cleanCage(int $number)
+    public function cleanCage(int $number): string
     {
-        if (empty($this->cages[$number])) {
+        /** @var Cage $cage */
+        $cage = $this->cages->get($number);
+
+        if (empty($cage)) {
             throw new Exception('Wrong cage number!');
         }
 
-        $animals = [];
-        $b = 10;
+        $animals = $cage->getAnimals()->toArray();
 
-        while ($animal = $this->cages[$number]->getLastAnimal()) {
-            $this->cages[$number]->removeAnimal();
+        array_map(function (Animal $animal) use ($cage) {
+            $cage->removeAnimal($animal);
+        }, $animals);
 
-            $animals[] = $animal;
+        $isClean = $cage->clean();
 
-            if ($b-- < 0) {
-                dd($animals);
+        array_map(function (Animal $animal) use ($cage) {
+            $cage->addAnimal($animal);
+        }, $animals);
 
-                break;
-            }
-        }
-
-        $result = $this->cages[$number]->clean();
-
-        foreach ($animals as $animal) {
-            $this->cages[$number]->addAnimal($animal);
-        }
-
-        return $result;
+        return $isClean ? sprintf('Cage %d is clean!', $number) : sprintf('Cage %d is not clean!', $number);
     }
 
     public function cleanAllCages(): string
     {
-        $result = '';
+        $cagesAreClean = '';
 
-        for ($i = 0; $i < count($this->cages); $i++) {
-            $result .= "Cage $i is " . $this->cleanCage($i) . PHP_EOL;
+        for ($i = 0; $i < $this->cages->count(); $i++) {
+            $cagesAreClean .= $this->cleanCage($i) . '<br>';
         }
 
-        return $result;
+        return $cagesAreClean;
     }
 
-    protected function fillWithAnimals(): void
+    private function initZoo(): void
+    {
+        $this->cages = $this->createCages();
+
+        $this->fillAllCages();
+    }
+
+    private function createCages(): ArrayCollection
     {
         $cages = new ArrayCollection();
 
         $numberOfCages = (int) $this->container->getParameter($this->numberOfCagesParam);
+
         for ($i = 0; $i < $numberOfCages; $i++) {
             $cages->add(new Cage());
         }
 
-        $cagesCounter = 0;
-        foreach ($this->params as $class => $param) {
-            $numberOfAnimals = (int) $this->container->getParameter($param['number']);
-            $numberOfAnimalsInCage = (int) $this->container->getParameter($param['number_in_cage']);
+        return $cages;
+    }
 
-            for ($i = 0; $i < $numberOfAnimals; $i++) {
-                $cages[$cagesCounter]->addAnimal(new $class());
-                if (($i + 1) % $numberOfAnimalsInCage == 0) {
-                    $cagesCounter++;
-                }
-            }
+    private function fillAllCages(): void
+    {
+        $this->cages->first();
+
+        foreach ($this->params as $animalClass => $containerParams) {
+            $numberOfAnimals = (int) $this->container->getParameter($containerParams['number']);
+            $numberOfAnimalsInCage = (int) $this->container->getParameter($containerParams['number_in_cage']);
+
+            $this->fillCagesWithOneTypeOfAnimals($animalClass, $numberOfAnimals, $numberOfAnimalsInCage);
 
             if ($numberOfAnimals % $numberOfAnimalsInCage != 0) {
-                $cagesCounter++;
+                $this->cages->next();
             }
         }
+    }
 
-        $this->cages = $cages;
+    private function fillCagesWithOneTypeOfAnimals(string $animalClass, int $numberOfAnimals, int $numberOfAnimalsInCage): void
+    {
+        for ($i = 0; $i < $numberOfAnimals; $i++) {
+            $this->cages->current()->addAnimal(new $animalClass());
+
+            if (($i + 1) % $numberOfAnimalsInCage === 0) {
+                $this->cages->next();
+            }
+        }
     }
 }

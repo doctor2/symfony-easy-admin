@@ -1,11 +1,11 @@
 {% extends  'base.html.twig'%}
 {% block body %}
-    {{ zoo.getCage(0).getAnimal(0).eat('meat')}}<br>
+    {{ zoo.getCage(0).getAnimal(0).eat('meat') }}<br>
     {{ zoo.getCage(0).getAnimal(1).growl() }}<br>
-    {{ zoo.cleanCage(1)}}<br>
-    {{ zoo.cleanAllCages()}}<br>
-    {{ zoo.getCage(3).getAnimal(0).eat('meat')}}<br>
-    {{ zoo.getCage(3).getAnimal(0).swim()}}<br>
-    {{ dump(zoo.getCages())}}<br>
+    {{ zoo.cleanCage(1) }}<br>
+    {{ zoo.cleanAllCages()|raw }}<br>
+    {{ zoo.getCage(3).getAnimal(0).eat('meat') }}<br>
+    {{ zoo.getCage(3).getAnimal(0).swim() }}<br>
+    {{ dump(zoo.getCages()) }}<br>
 {% endblock %}
 

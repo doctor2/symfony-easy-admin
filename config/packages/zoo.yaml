@@ -9,7 +9,8 @@ parameters:
 
 
 services:
-  app.zoo:
+  App\Zoo\Zoo:
     class:  App\Zoo\Zoo
     public: true
-    arguments: ["@service_container"]
+    arguments:
+      - '@service_container'
