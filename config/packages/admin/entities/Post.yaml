@@ -13,7 +13,7 @@ easy_admin:
           - 'category'
           - 'tags'
           - { property: 'previewImageFile', type: 'vich_image' }
-          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType' }}
+          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType', by_reference: false }}
       show:
         fields:
           - 'name'

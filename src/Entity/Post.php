@@ -57,7 +57,14 @@ class Post
     private $previewImage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Image", cascade={"persist"})
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="post_images", fileNameProperty="previewImage")
+     */
+    private $previewImageFile;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image", mappedBy="posts", cascade={"persist"})
      * @ORM\JoinTable(
      *      name="post_images",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
@@ -65,12 +72,6 @@ class Post
      * )
      */
     private $images;
-
-    /**
-     * @Vich\UploadableField(mapping="post_images", fileNameProperty="previewImage")
-     * @var File
-     */
-    private $previewImageFile;
 
     public function __construct()
     {
@@ -201,6 +202,26 @@ class Post
     public function getImages(): Collection
     {
         return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->addPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            $image->removePost($this);
+        }
+
+        return $this;
     }
 
     public function __toString(): string

@@ -48,7 +48,7 @@ class Image
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", inversedBy="images", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Post", inversedBy="images", cascade={"persist"})
      * @ORM\JoinTable(name="post_images")
      */
     private $posts;
@@ -108,17 +108,28 @@ class Image
         return $this->posts;
     }
 
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+        }
+
+        return $this;
+    }
+
     public function getPostName(): ?string
     {
         $post = $this->posts[0];
 
         return $post ? $post->getName() : null;
-    }
-
-    public function setPosts(Post $post): bool
-    {
-        $this->posts->clear();
-
-        return $this->posts->add($post);
     }
 }
