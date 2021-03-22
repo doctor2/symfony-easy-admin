@@ -35,6 +35,7 @@ easy_admin:
           - 'online'
           - 'category'
           - 'tags'
+          - 'updatedAt'
         actions:
           # - {name: 'show', icon: 'tv', lable: false, css_class: 'btn btn-secondary'}
           - {name: 'edit', icon: 'pencil', lable: false, css_class: 'btn btn-secondary'}
