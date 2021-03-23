@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
+use App\EntityInterface\SluggableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
+ * @UniqueEntity("slug")
  */
-class Tag
+class Tag implements SluggableInterface
 {
     /**
      * @ORM\Id()
@@ -24,7 +27,7 @@ class Tag
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -65,6 +68,13 @@ class Tag
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function computeSlug(SluggerInterface $slugger): void
+    {
+        if (empty($this->slug) || '-' === $this->slug) {
+            $this->slug = (string) $slugger->slug((string) $this)->lower();
+        }
     }
 
     public function getPosts(): Collection
