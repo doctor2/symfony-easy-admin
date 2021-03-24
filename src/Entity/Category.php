@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\EntityInterface\SluggableInterface;
 use App\EntityTrait\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @UniqueEntity("slug")
  */
-class Category
+class Category implements SluggableInterface
 {
     use SluggableTrait;
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\EntityInterface\SluggableInterface;
 use App\EntityTrait\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("slug")
  * @Vich\Uploadable
  */
-class Post
+class Post implements SluggableInterface
 {
     use SluggableTrait;
 
