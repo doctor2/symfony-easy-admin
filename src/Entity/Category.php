@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\EntityInterface\SluggableInterface;
+use App\EntityTrait\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @UniqueEntity("slug")
  */
-class Category implements SluggableInterface
+class Category
 {
+    use SluggableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,12 +27,6 @@ class Category implements SluggableInterface
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\Regex(pattern="/^[a-z0-9-]+$/")
-     */
-    private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category")
@@ -59,25 +53,6 @@ class Category implements SluggableInterface
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function computeSlug(SluggerInterface $slugger): void
-    {
-        if (empty($this->slug) || '-' === $this->slug) {
-            $this->slug = (string) $slugger->slug((string) $this)->lower();
-        }
     }
 
     public function getPosts(): Collection
