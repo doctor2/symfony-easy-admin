@@ -6,4 +6,8 @@ sh Makefile
 
 Admin panel - http://127.0.0.1:8002/admin/
 
-lodin - password: admin - admin
+login - password: admin - admin
+
+## Good Symfony doc
+
+https://habr.com/ru/post/116834/
