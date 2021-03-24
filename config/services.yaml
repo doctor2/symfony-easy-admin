@@ -30,3 +30,13 @@ services:
         tags:
             - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Post' }
             - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Post' }
+
+    App\Twig\Filter\:
+        resource: '%kernel.project_dir%/src/Twig/Filter/*'
+        autowire: true
+        tags: ['twig.runtime']
+
+    App\Twig\Filter\AbsoluteUrlRuntime:
+        arguments:
+            - '%env(BASE_URL)%'
+        tags: ['twig.runtime']
