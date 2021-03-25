@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Blog\EntityListener;
+namespace App\Domain\Blog\Listener;
 
 use App\Domain\Blog\Entity\Post;
 use DateTime;

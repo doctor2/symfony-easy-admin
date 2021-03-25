@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Blog\EntityTrait;
+namespace App\Domain\Blog\Entity\Traits;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\String\Slugger\SluggerInterface;

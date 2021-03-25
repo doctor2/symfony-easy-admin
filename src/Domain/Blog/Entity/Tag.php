@@ -2,8 +2,8 @@
 
 namespace App\Domain\Blog\Entity;
 
-use App\Domain\Blog\EntityInterface\SluggableInterface;
-use App\Domain\Blog\EntityTrait\SluggableTrait;
+use App\Domain\Blog\Entity\Interfaces\SluggableInterface;
+use App\Domain\Blog\Entity\Traits\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
