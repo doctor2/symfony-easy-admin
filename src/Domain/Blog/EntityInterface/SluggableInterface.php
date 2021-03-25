@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EntityInterface;
+namespace App\Domain\Blog\EntityInterface;
 
 use Symfony\Component\String\Slugger\SluggerInterface;
 

@@ -1,7 +1,7 @@
 easy_admin:
   entities:
     Category:
-      class: App\Entity\Category
+      class: App\Domain\Blog\Entity\Category
       form:
         fields:
           - {property: 'name'}

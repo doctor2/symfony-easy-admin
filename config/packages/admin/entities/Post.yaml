@@ -1,7 +1,7 @@
 easy_admin:
   entities:
     Post:
-      class: App\Entity\Post
+      class: App\Domain\Blog\Entity\Post
       templates:
         edit: 'admin/post/edit.html.twig'
       form:
@@ -13,7 +13,7 @@ easy_admin:
           - 'category'
           - 'tags'
           - { property: 'previewImageFile', type: 'vich_image' }
-          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType', by_reference: false }}
+          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Domain\Blog\Form\ImageType', by_reference: false }}
       show:
         fields:
           - 'name'
@@ -22,7 +22,7 @@ easy_admin:
           - 'online'
           - 'category'
           - 'tags'
-          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Form\ImageType' }}
+          - { property: 'images', type: 'collection', type_options: { entry_type: 'App\Domain\Blog\Form\ImageType' }}
           - { property: 'previewImage',  type: 'image', base_path: '%app.path.post_images%' }
       list:
         max_results: 10

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EntityListener;
+namespace App\Domain\Blog\EntityListener;
 
-use App\EntityInterface\SluggableInterface;
+use App\Domain\Blog\EntityInterface\SluggableInterface;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;

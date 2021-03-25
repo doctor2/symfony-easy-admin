@@ -2,10 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Tag;
-use App\Entity\User;
+use App\Domain\Blog\Entity\Category;
+use App\Domain\Blog\Entity\Post;
+use App\Domain\Blog\Entity\Tag;
+use App\Domain\Blog\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;

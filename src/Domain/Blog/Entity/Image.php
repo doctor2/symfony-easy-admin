@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Blog\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -48,7 +48,7 @@ class Image
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Post", inversedBy="images", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Domain\Blog\Entity\Post", inversedBy="images", cascade={"persist"})
      * @ORM\JoinTable(name="post_images")
      */
     private $posts;

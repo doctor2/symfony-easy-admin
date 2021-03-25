@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EntityListener;
+namespace App\Domain\Blog\EntityListener;
 
-use App\Entity\Post;
+use App\Domain\Blog\Entity\Post;
 use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 

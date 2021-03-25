@@ -1,7 +1,7 @@
 easy_admin:
   entities:
     PostImage:
-      class: App\Entity\Image
+      class: App\Domain\Blog\Entity\Image
       form:
         fields:
           - 'name'

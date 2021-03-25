@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Blog\Entity;
 
-use App\EntityInterface\SluggableInterface;
-use App\EntityTrait\SluggableTrait;
+use App\Domain\Blog\EntityInterface\SluggableInterface;
+use App\Domain\Blog\EntityTrait\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Blog\Repository\CategoryRepository")
  * @UniqueEntity("slug")
  */
-class Tag implements SluggableInterface
+class Category implements SluggableInterface
 {
     use SluggableTrait;
 
@@ -30,12 +30,7 @@ class Tag implements SluggableInterface
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $slug;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tags")
+     * @ORM\OneToMany(targetEntity="App\Domain\Blog\Entity\Post", mappedBy="category")
      */
     private $posts;
 
@@ -70,7 +65,7 @@ class Tag implements SluggableInterface
     {
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
-            $post->addTag($this);
+            $post->setCategory($this);
         }
 
         return $this;
@@ -80,7 +75,10 @@ class Tag implements SluggableInterface
     {
         if ($this->posts->contains($post)) {
             $this->posts->removeElement($post);
-            $post->removeTag($this);
+            // set the owning side to null (unless already changed)
+            if ($post->getCategory() === $this) {
+                $post->setCategory(null);
+            }
         }
 
         return $this;

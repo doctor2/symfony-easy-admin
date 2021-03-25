@@ -18,19 +18,19 @@ easy_admin:
 #                 - {entity: 'Category', icon: 'inbox', label: 'Categories'}
 #     entities:
 #       Category:
-#         class: App\Entity\Category
+#         class: App\Domain\Blog\Entity\Category
 #         form:
 #             fields:
 #                 - {property: 'name'}
 #                 - {property: 'slug'}
 #       Post:
-#         class: App\Entity\Post
+#         class: App\Domain\Blog\Entity\Post
 
 
 
 # Очень простое подключение
       # entities:
 #        # List the entity class name you want to manage
-#        - App\Entity\Product
-      #  - App\Entity\Post
-#        - App\Entity\User
+#        - App\Domain\Blog\Entity\Product
+      #  - App\Domain\Blog\Entity\Post
+#        - App\Domain\Blog\Entity\User

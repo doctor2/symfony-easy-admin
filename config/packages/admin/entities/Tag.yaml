@@ -1,7 +1,7 @@
 easy_admin:
   entities:
     Tag:
-      class: App\Entity\Tag
+      class: App\Domain\Blog\Entity\Tag
       form:
         fields:
             - {property: 'name'}

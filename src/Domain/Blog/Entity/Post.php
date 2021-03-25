@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Blog\Entity;
 
-use App\EntityInterface\SluggableInterface;
-use App\EntityTrait\SluggableTrait;
+use App\Domain\Blog\EntityInterface\SluggableInterface;
+use App\Domain\Blog\EntityTrait\SluggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\Blog\Repository\PostRepository")
  * @UniqueEntity("slug")
  * @Vich\Uploadable
  */
@@ -38,12 +38,12 @@ class Post implements SluggableInterface
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Blog\Entity\Category", inversedBy="posts")
      */
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="App\Domain\Blog\Entity\Tag", inversedBy="posts")
      */
     private $tags;
 
@@ -65,7 +65,7 @@ class Post implements SluggableInterface
     private $previewImageFile;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Image", mappedBy="posts", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Domain\Blog\Entity\Image", mappedBy="posts", cascade={"persist"})
      * @ORM\JoinTable(
      *      name="post_images",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
