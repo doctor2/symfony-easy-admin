@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Zoo;
+namespace App\Domain\Zoo;
 
-use App\Zoo\Animals\Animal;
+use App\Domain\Zoo\Animals\Animal;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 

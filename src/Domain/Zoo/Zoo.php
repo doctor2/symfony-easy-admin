@@ -1,47 +1,35 @@
 <?php
 
-namespace App\Zoo;
+namespace App\Domain\Zoo;
 
-use App\Zoo\Animals\Animal;
-use App\Zoo\Animals\Crocodile;
-use App\Zoo\Animals\Elephant;
-use App\Zoo\Animals\Lien;
+use App\Domain\Zoo\Animals\Animal;
+use App\Domain\Zoo\Animals\Crocodile;
+use App\Domain\Zoo\Animals\Elephant;
+use App\Domain\Zoo\Animals\Lien;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Zoo
 {
+    private const ANIMAL_CLASSES = [
+        'liens' => Lien::class,
+        'crocodiles' => Crocodile::class,
+        'elephants' => Elephant::class,
+    ];
+
     /**
      * @var ArrayCollection
      */
     private $cages;
 
     /**
-     * @var Container
+     * @var mixed[]
      */
-    private $container;
+    private $zooConfig;
 
-    private $params = [
-        Lien::class => [
-            'number' => 'zoo.liens.number',
-            'number_in_cage' => 'zoo.liens.number_in_cage',
-        ],
-        Crocodile::class => [
-            'number' => 'zoo.crocodiles.number',
-            'number_in_cage' => 'zoo.crocodiles.number_in_cage',
-        ],
-        Elephant::class => [
-            'number' => 'zoo.elephants.number',
-            'number_in_cage' => 'zoo.elephants.number_in_cage',
-        ],
-    ];
-
-    private $numberOfCagesParam = 'zoo.cages.number';
-
-    public function __construct(Container $container)
+    public function __construct(array $zooConfig)
     {
-        $this->container = $container;
+        $this->zooConfig = $zooConfig;
 
         $this->initZoo();
     }
@@ -102,7 +90,7 @@ class Zoo
     {
         $cages = new ArrayCollection();
 
-        $numberOfCages = (int) $this->container->getParameter($this->numberOfCagesParam);
+        $numberOfCages = (int) $this->zooConfig['cages'];
 
         for ($i = 0; $i < $numberOfCages; $i++) {
             $cages->add(new Cage());
@@ -115,9 +103,13 @@ class Zoo
     {
         $this->cages->first();
 
-        foreach ($this->params as $animalClass => $containerParams) {
-            $numberOfAnimals = (int) $this->container->getParameter($containerParams['number']);
-            $numberOfAnimalsInCage = (int) $this->container->getParameter($containerParams['number_in_cage']);
+        foreach (self::ANIMAL_CLASSES as $configParam => $animalClass) {
+            if (empty($this->zooConfig['animals'][$configParam])) {
+                continue;
+            }
+
+            $numberOfAnimals = (int) $this->zooConfig['animals'][$configParam]['quantity'];
+            $numberOfAnimalsInCage = (int) $this->zooConfig['animals'][$configParam]['quantity_in_cage'];
 
             $this->fillCagesWithOneTypeOfAnimals($animalClass, $numberOfAnimals, $numberOfAnimalsInCage);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Zoo\Animals;
+namespace App\Domain\Zoo\Animals;
 
 class Lien extends Animal
 {

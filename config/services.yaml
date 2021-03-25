@@ -40,3 +40,8 @@ services:
         arguments:
             - '%env(BASE_URL)%'
         tags: ['twig.runtime']
+
+    App\Domain\Zoo\Zoo:
+        class:  App\Domain\Zoo\Zoo
+        arguments:
+        - '%zoo.config%'
