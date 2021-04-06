@@ -13,3 +13,5 @@ login - password: admin - admin
 https://habr.com/ru/post/116834/
 
 https://habr.com/ru/post/499076/
+
+https://symfonycasts.com/tracks/symfony4
