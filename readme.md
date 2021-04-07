@@ -4,7 +4,7 @@ sh Makefile
 
 ## Application Overview
 
-Admin panel - http://127.0.0.1:8002/admin/
+Admin panel - http://127.0.0.1:8081/admin/
 
 login - password: admin - admin
 
@@ -15,3 +15,5 @@ https://habr.com/ru/post/116834/
 https://habr.com/ru/post/499076/
 
 https://symfonycasts.com/tracks/symfony4
+
+https://www.youtube.com/watch?v=c_mkpVg5rlg
