@@ -4,7 +4,7 @@ GREEN='\033[0;32m'
 echo "\n${GREEN}Prepare settings...${NC}"
 
 
-docker-compose run --rm --no-deps php-cli composer install
+docker-compose run -u1000 php-cli composer install
 
 echo "\n${GREEN}DONE"
 
