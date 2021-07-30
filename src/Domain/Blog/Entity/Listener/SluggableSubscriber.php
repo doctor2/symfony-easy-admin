@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domain\Blog\Listener;
+namespace App\Domain\Blog\Entity\Listener;
 
 use App\Domain\Blog\Entity\Interfaces\SluggableInterface;
-use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class SluggableSubscriber implements EventSubscriberInterface
+class SluggableSubscriber implements EventSubscriber
 {
     private $slugger;
 
