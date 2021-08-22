@@ -19,6 +19,7 @@ services:
     container_name: ${PROJECT_NAME}-php-fpm
     depends_on:
       - mysql
+      - redis
 
   php-cli:
     build:
@@ -50,6 +51,20 @@ services:
       PMA_HOSTS: mysql
     ports:
       - 8080:80
+
+  redis:
+    image: redis:5.0-alpine
+    volumes:
+      - "./docker/redis/:/data"
+    ports:
+      - "6379:6379"
+
+  redisadmin:
+    image: erikdubbelboer/phpredisadmin
+    environment:
+      - REDIS_1_HOST=redis
+    ports:
+      - "16379:80"
 
 volumes:
   mysql:

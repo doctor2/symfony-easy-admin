@@ -6,6 +6,8 @@ sh Makefile
 
 Admin panel - http://127.0.0.1:8081/admin/
 
+Redis Admin panel - http://127.0.0.1:16379/
+
 login - password: admin - admin
 
 ## Good Symfony docs
